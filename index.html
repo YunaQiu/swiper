@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>宣传 demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div id="main" class="swiper-container">
+        <div class="swiper-wrapper">
+            <div id="enter" class="swiper-slide">
+                <div class="centerBlock">
+                    <img src="img/mail.png" width="200" id="mail" class="ani" swiper-animate-effect="swing" swiper-animate-duration="0.5s"/>
+                    <div id="title" class="ani" swiper-animate-effect="zoomIn" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s">来自BBT技术新势力的一封信...</div>          
+                </div>
+                <img src="img/arrow.png" class="arrow"/>
+            </div>
+            <div id="start" class="swiper-slide">
+                <div class="centerBlock">
+                    <div id="header" class="ani" swiper-animate-effect="fadeInUp" swiper-animate-duration="0.5s">我们是</div>
+                    <div id="org" class="ani" swiper-animate-effect="flipInX" swiper-animate-duration="0.5s" swiper-animate-delay="0.5s">百步梯</div>
+                    <div id="dep" class="ani" swiper-animate-effect="flipInX" swiper-animate-duration="0.5s" swiper-animate-delay="1s">技术部</div>
+                </div>
+                <img src="img/arrow.png" class="arrow"/>
+            </div>
+            <div class="swiper-slide">
+                <div id="food" class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div id="food1" class="swiper-slide center">
+                            <div class="centerBlock">
+                                <div class="ani" swiper-animate-effect="bounce" swiper-animate-duration="1s">food 1</div>
+                            </div>                      
+                        </div>
+                        <div id="food2" class="swiper-slide center">
+                            <div class="centerBlock">
+                                <div class="ani" swiper-animate-effect="bounce" swiper-animate-duration="1s">food 2</div>
+                            </div>                      
+                        </div>                      
+                        <div id="food3" class="swiper-slide center">
+                            <div class="centerBlock">
+                                <div class="ani" swiper-animate-effect="bounce" swiper-animate-duration="1s">food 3</div>
+                            </div>                      
+                        </div>
+                        <div id="food4" class="swiper-slide center">
+                            <div class="centerBlock">
+                                <div class="ani" swiper-animate-effect="bounce" swiper-animate-duration="1s">food 4</div>
+                            </div>                      
+                        </div>
+                    </div>
+                    <div id="foodPagin" class="swiper-pagination"></div>
+                </div>
+                <img src="img/arrow.png" class="arrow"/>
+            </div>
+            <div class="center swiper-slide">
+                <div class="centerBlock">
+                    <div class="ani" swiper-animate-effect="bounce" swiper-animate-duration="1s">Slide 4</div>
+                </div>
+                <img src="img/arrow.png" class="arrow"/>
+            </div>
+            <div class="center swiper-slide">
+                <div class="centerBlock">
+                    <div class="ani" swiper-animate-effect="bounce" swiper-animate-duration="1s">Slide 5</div>
+                </div>
+                <img src="img/arrow.png" class="arrow"/>
+            </div>
+            <div class="center swiper-slide">
+                <div class="centerBlock">
+                    <div class="ani" swiper-animate-effect="bounce" swiper-animate-duration="1s">Slide 6</div>
+                </div>
+            </div>            
+        </div>
+    </div>
+
+    <script src="http://apps.bdimg.com/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="js/swiper.min.js"></script>
+    <script src="js/swiper.jquery.min.js"></script>
+    <script src="js/swiper.animate.min.js"></script>
+    <script>
+    var screenWidth,screenHeight;
+    $(function(){
+        screenHeight = $("body").height();
+        screenWidth = $("body").width();
+        resizer();
+        $(window).resize(function(){
+            screenHeight = $("body").height();
+            screenWidth = $("body").width();
+            resizer();
+        })        
+        var foodSwiper = new Swiper('#food', {
+            pagination: '#foodPagin',
+            paginationClickable: true,
+            keyboardControl: true,
+            mousewheelForceToAxis: true,
+            direction: 'horizontal',
+            onInit: function(foodSwiper){
+                swiperAnimateCache(foodSwiper);
+                swiperAnimate(foodSwiper);
+            },
+            onSlideChangeStart: function(foodSwiper){
+                $("#food").find("div.ani").each(function(){
+                    $(this).removeClass("bounce animated");     //该死的swiper留下的bug
+                })
+            },
+            onSlideChangeEnd: function(foodSwiper){
+                swiperAnimate(foodSwiper);
+            }, 
+            onTransitionEnd: function(foodSwiper){ 
+                swiperAnimate(foodSwiper);
+            }
+        });
+        var mainSwiper = new Swiper('#main', {
+            keyboardControl: true,
+            mousewheelControl: true,
+            direction: 'vertical',
+            onInit: function(mainSwiper){
+                swiperAnimateCache(mainSwiper);
+                swiperAnimate(mainSwiper);
+            }, 
+            onSlideChangeEnd: function(mainSwiper){ 
+                swiperAnimate(mainSwiper);
+            },
+            onTransitionEnd: function(mainSwiper){ 
+                swiperAnimate(mainSwiper);
+            }
+        });
+    })
+    function resizer(){
+        $(".centerBlock").each(function(){
+            var height = $(this).height();
+            $(this).css("margin-top",(screenHeight-height)/2);
+        })
+        var arrowWidth = $(".arrow").width();
+        var containerWidth = $(".swiper-container").width();
+        $(".arrow").css("left",(containerWidth-arrowWidth)/2);
+    }
+    </script>
+</body>
+</html>
