@@ -140,10 +140,13 @@
         swiperAnimate(mainSwiper);
     }
     function resizer(){
+        var height;
+        alert(screenHeight);
         $(".centerBlock").each(function(){
-            var height = $(this).height();
+            height = $(this).height();            
             $(this).css("margin-top",(screenHeight-height)/2);
         })
+        alert(height)
         var arrowWidth = $(".arrow").width();
         var containerWidth = $(".swiper-container").width();
         $(".arrow").css("left",(containerWidth-arrowWidth)/2);
