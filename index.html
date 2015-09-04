@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
+    <div id="loading">
+        <!-- <img src="img/loading.gif" width="45" alt=""><br/> -->
+        加载中，请稍后...
+    </div>
     <div id="main" class="swiper-container">
         <div class="swiper-wrapper">
             <div id="enter" class="swiper-slide">
@@ -80,16 +84,16 @@
     <script src="js/swiper.animate.min.js"></script>
     <script>
     var screenWidth,screenHeight;
+    var foodSwiper,mainSwiper;
+    screenHeight = $("body").height();
+    screenWidth = $("body").width();
     $(function(){
-        screenHeight = $("body").height();
-        screenWidth = $("body").width();
-        resizer();
         $(window).resize(function(){
             screenHeight = $("body").height();
             screenWidth = $("body").width();
             resizer();
         })        
-        var foodSwiper = new Swiper('#food', {
+        foodSwiper = new Swiper('#food', {
             pagination: '#foodPagin',
             paginationClickable: true,
             keyboardControl: true,
@@ -97,7 +101,7 @@
             direction: 'horizontal',
             onInit: function(foodSwiper){
                 swiperAnimateCache(foodSwiper);
-                swiperAnimate(foodSwiper);
+                //swiperAnimate(foodSwiper);
             },
             onSlideChangeStart: function(foodSwiper){
                 $("#food").find("div.ani").each(function(){
@@ -111,13 +115,13 @@
                 swiperAnimate(foodSwiper);
             }
         });
-        var mainSwiper = new Swiper('#main', {
+        mainSwiper = new Swiper('#main', {
             keyboardControl: true,
             mousewheelControl: true,
             direction: 'vertical',
             onInit: function(mainSwiper){
                 swiperAnimateCache(mainSwiper);
-                swiperAnimate(mainSwiper);
+                //swiperAnimate(mainSwiper);
             }, 
             onSlideChangeEnd: function(mainSwiper){ 
                 swiperAnimate(mainSwiper);
@@ -126,7 +130,15 @@
                 swiperAnimate(mainSwiper);
             }
         });
+        $(".arrow").click(function(){
+            mainSwiper.slideNext();
+        })
     })
+    window.onload = function(){
+        resizer();
+        $("#loading").hide();
+        swiperAnimate(mainSwiper);
+    }
     function resizer(){
         $(".centerBlock").each(function(){
             var height = $(this).height();
