@@ -144,7 +144,7 @@
         alert(screenHeight);
         $(".centerBlock").each(function(){
             height = $(this).height();            
-            $(this).css("margin-top",(screenHeight-height)/2);
+            $(this).css("margin-top",(screenHeight-height)/2 + "px");
         })
         alert(height);
         alert($(".centerBlock:first").css("margin-top"));
